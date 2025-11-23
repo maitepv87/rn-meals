@@ -7,7 +7,9 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
 import MealDetails from "../components/MealDetails";
+import { Colors } from "../constants/theme";
 
 export default function MealItem({
   id,
@@ -24,16 +26,18 @@ export default function MealItem({
   };
 
   return (
-    <View style={styles.container} android_ripple={{ color: "#ccc" }}>
+    <View style={styles.wrapper}>
       <Pressable
         onPress={handlePress}
-        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+        android_ripple={{ color: "rgba(0,0,0,0.06)" }}
+        style={({ pressed }) => (pressed ? styles.pressed : null)}
       >
         <View style={styles.innerContainer}>
-          <View>
+          <View style={styles.imageContainer}>
             <Image source={{ uri: imageUrl }} style={styles.image} />
-            <Text style={styles.title}>{title}</Text>
           </View>
+
+          <Text style={styles.title}>{title}</Text>
 
           <MealDetails
             complexity={complexity}
@@ -47,34 +51,44 @@ export default function MealItem({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 16,
-    borderRadius: 8,
-    overflow: "hidden",
+  wrapper: {
+    marginVertical: 8,
+    marginHorizontal: 12,
+    borderRadius: 12,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
-    backgroundColor: "white",
     elevation: 4,
     shadowColor: "black",
-    shadowOpacity: 0.35,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    backgroundColor: Colors.card,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.04)",
+  },
+  pressed: {
+    opacity: 0.96,
   },
   innerContainer: {
-    borderRadius: 8,
+    borderRadius: 12,
     overflow: "hidden",
+    backgroundColor: "transparent",
   },
-  buttonPressed: {
-    opacity: 0.5,
+  imageContainer: {
+    width: "100%",
+    height: 200,
+    overflow: "hidden",
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   image: {
     width: "100%",
-    height: 200,
+    height: "100%",
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: "700",
     textAlign: "center",
     fontSize: 18,
-    margin: 8,
+    marginVertical: 8,
+    color: Colors.primaryText,
   },
 });

@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
+import { Colors } from "../constants/theme";
 
 export default function MealDetails({
-  complexity,
-  duration,
-  affordability,
+  complexity = "",
+  duration = 0,
+  affordability = "",
   style,
   textStyle,
 }) {
@@ -11,10 +12,10 @@ export default function MealDetails({
     <View style={[styles.details, style]}>
       <Text style={[styles.detailsItem, textStyle]}>{duration} min</Text>
       <Text style={[styles.detailsItem, textStyle]}>
-        {complexity.toUpperCase()}
+        {typeof complexity === "string" ? complexity.toUpperCase() : ""}
       </Text>
       <Text style={[styles.detailsItem, textStyle]}>
-        {affordability.toUpperCase()}
+        {typeof affordability === "string" ? affordability.toUpperCase() : ""}
       </Text>
     </View>
   );
@@ -28,7 +29,8 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   detailsItem: {
-    marginHorizontal: 4,
+     marginHorizontal: 6,
     fontSize: 12,
+    color: Colors.mutedText,
   },
 });

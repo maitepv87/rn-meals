@@ -1,11 +1,18 @@
-import { StyleSheet, Pressable } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "../constants/theme";
 
-export default function IconButton({ icon, color, onPress }) {
+export default function IconButton({
+  icon,
+  color = Colors.primaryText,
+  onPress,
+}) {
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+      hitSlop={8}
+      accessibilityRole="button"
+      style={({ pressed }) => (pressed ? styles.pressed : null)}
     >
       <Ionicons name={icon} size={24} color={color} />
     </Pressable>
@@ -13,7 +20,5 @@ export default function IconButton({ icon, color, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  buttonPressed: {
-    opacity: 0.5,
-  },
+  pressed: { opacity: 0.7 },
 });
