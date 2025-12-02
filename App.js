@@ -5,7 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
+import { Provider } from "react-redux";
 
+import { store } from "./store/store";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
@@ -57,34 +59,36 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         <StatusBar style="light" />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: { backgroundColor: Colors.header },
-              headerTintColor: Colors.primaryText,
-              contentStyle: { backgroundColor: Colors.surface },
-            }}
-          >
-            <Stack.Screen
-              name="Drawer"
-              component={DrawerNavigation}
-              options={{
-                headerShown: false,
+        <Provider store={store}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: { backgroundColor: Colors.header },
+                headerTintColor: Colors.primaryText,
+                contentStyle: { backgroundColor: Colors.surface },
               }}
-            />
-            <Stack.Screen
-              name="MealsOverview"
-              component={MealsOverviewScreen}
-            />
-            <Stack.Screen
-              name="MealDetail"
-              component={MealDetailScreen}
-              options={{
-                title: "About the Meal",
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+            >
+              <Stack.Screen
+                name="Drawer"
+                component={DrawerNavigation}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="MealsOverview"
+                component={MealsOverviewScreen}
+              />
+              <Stack.Screen
+                name="MealDetail"
+                component={MealDetailScreen}
+                options={{
+                  title: "About the Meal",
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </Provider>
       </View>
     </SafeAreaProvider>
   );

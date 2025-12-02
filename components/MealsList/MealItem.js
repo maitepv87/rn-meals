@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import MealDetails from "../components/MealDetails";
-import { Colors } from "../constants/theme";
+import MealDetails from "../MealDetails";
+import { Colors } from "../../constants/theme";
 
 export default function MealItem({
   id,

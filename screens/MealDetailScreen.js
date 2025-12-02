@@ -1,14 +1,9 @@
 import { useLayoutEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Pressable,
-  Platform,
-} from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../store/favorites";
+
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
@@ -21,25 +16,33 @@ export default function MealDetailScreen() {
   const route = useRoute();
   const mealId = route.params?.mealId;
   const selectedMeal = MEALS.find((m) => m.id === mealId);
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
 
-  const handleHeaderButtonPress = useCallback(() => {
-    // TODO: integrar lógica de favoritos (context / redux / async storage)
-    console.log("toggle favorite:", mealId);
-  }, [mealId]);
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
+
+  const changeFavoriteStatusHandler = useCallback(() => {
+    if (mealIsFavorite) {
+      dispatch(removeFavorite({ id: mealId }));
+    } else {
+      dispatch(addFavorite({ id: mealId }));
+    }
+  }, [mealId, mealIsFavorite, dispatch]);
+  
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: selectedMeal ? selectedMeal.title : "Meal",
       headerRight: () => (
         <IconButton
-          onPress={handleHeaderButtonPress}
-          icon="star"
+          onPress={changeFavoriteStatusHandler}
+          icon={mealIsFavorite ? "star" : "star-outline"}
           color={Colors.primaryText}
           accessibilityLabel="Toggle favorite"
         />
       ),
     });
-  }, [navigation, selectedMeal, handleHeaderButtonPress]);
+  }, [navigation, selectedMeal, changeFavoriteStatusHandler]);
 
   if (!selectedMeal) {
     return (
