@@ -8,9 +8,9 @@ A mobile app built with **React Native** and **Expo** where users can browse mea
 
 <p align="center">
   <img src="./assets/screenshots/categories-screen.jpeg" alt="Categories Screen" width="250"/>
-  <img src="./assets/screenshots/meals-overview.png" alt="Meals Overview Screen" width="250"/>
-  <img src="./assets/screenshots/meal-detail.png" alt="Meal Detail Screen" width="250"/>
-  <img src="./assets/screenshots/favorites-screen.png" alt="Favorites Screen" width="250"/>
+  <img src="./assets/screenshots/meals-overview.jpeg" alt="Meals Overview Screen" width="250"/>
+  <img src="./assets/screenshots/meal-detail.jpeg" alt="Meal Detail Screen" width="250"/>
+  <img src="./assets/screenshots/favorites-screen.jpeg" alt="Favorites Screen" width="250"/>
 </p>
 
 ---
